@@ -14,7 +14,7 @@
     "@langchain/core": "^0.3.17",
     "@langchain/langgraph": "^0.2.20",
     "@langchain/openai": "^0.3.12",
-    "@langchain/pinecone": "^0.1.1",
+    "@langchain/pinecone": "0.1.1",
     "@mui/material": "^6.1.8",
     "@pinecone-database/pinecone": "^3.0.0",
     "@react-spring/three": "^9.7.5",
