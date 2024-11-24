@@ -77,7 +77,7 @@ const Recorder = ({ params }: { params: { id: number } }) => {
       const ttsData = await ttsRes.json();
       console.log(ttsData);
       const audio = new Audio(ttsData.audioURL);
-      audio.play();
+      audio.play().catch(error => console.error('Audio playback error:', error));
     });
 
     // 録音開始
