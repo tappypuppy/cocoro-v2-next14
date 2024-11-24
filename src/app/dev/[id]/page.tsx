@@ -15,6 +15,9 @@ const Recorder = ({ params }: { params: { id: number } }) => {
     null
   );
 
+  // 録音データを保存する状態を管理
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+
   // 録音開始処理
   const startRecording = async () => {
     // マイクの使用許可を取得
@@ -33,6 +36,10 @@ const Recorder = ({ params }: { params: { id: number } }) => {
     mediaRecorder.addEventListener("stop", async () => {
       // 録音データをBlob形式に変換
       const audioBlob = new Blob(chunks, { type: "audio/mp3" });
+
+      // 録音データをURL形式に変換して保存
+      const audioUrl = URL.createObjectURL(audioBlob);
+      setAudioUrl(audioUrl);
 
       // 録音データをFormData形式に変換
       const formData = new FormData();
@@ -86,6 +93,14 @@ const Recorder = ({ params }: { params: { id: number } }) => {
     }
   };
 
+  // 録音データを再生する処理
+  const playRecording = () => {
+    if (audioUrl) {
+      const audio = new Audio(audioUrl);
+      audio.play();
+    }
+  };
+
   return (
     <>
       <Container>
@@ -116,7 +131,16 @@ const Recorder = ({ params }: { params: { id: number } }) => {
               録音停止
             </Button>
           )}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={playRecording}
+            sx={{ mt: 2 }}
+          >
+            再生
+          </Button>
         </Box>
+
         <Gradients />
       </Container>
     </>
